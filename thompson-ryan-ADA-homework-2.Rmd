@@ -1,0 +1,34 @@
+---
+title: "thompson-kenneth-ADA-homework-2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## CHALLENGE 1
+
+
+
+```{r movies}
+library(tidyverse)
+
+f <-"https://raw.githubusercontent.com/difiore/ADA-datasets/master/IMDB-movies.csv"
+d <- read.csv(f)
+e <- filter(d, startYear >= 1920 & startYear <= 1979 & runtimeMinutes <240) 
+e <- mutate(e, decade = startYear - (startYear %% 10))
+
+p <- ggplot(e, aes(runtimeMinutes)) + labs(x= "Movie Run Time") + geom_histogram() + facet_wrap( ~ decade)
+p
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
