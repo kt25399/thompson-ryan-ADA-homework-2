@@ -13,14 +13,30 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r movies}
 library(tidyverse)
+library(mosaic)
 
 f <-"https://raw.githubusercontent.com/difiore/ADA-datasets/master/IMDB-movies.csv"
 d <- read.csv(f)
-e <- filter(d, startYear >= 1920 & startYear <= 1979 & runtimeMinutes <240) 
+e <- filter(d, startYear %in% 1920:1979 & runtimeMinutes <240) 
 e <- mutate(e, decade = startYear - (startYear %% 10))
 
 p <- ggplot(e, aes(runtimeMinutes)) + labs(x= "Movie Run Time") + geom_histogram() + facet_wrap( ~ decade)
 p
+
+results <- data.frame(
+  "Mean" = mean(runtimeMinutes ~ decade, data = e), 
+  "Standard Deviation" = sd(runtimeMinutes ~ decade, data = e)
+)
+
+n <- 100
+single_sample <- data.frame(
+  decade = c(1920,1930,1940,1950,1960,1970),
+  mean = mean(runtimeMinutes ~ decade, data = sample_n(e, size = n, replace = FALSE)),
+  standard_deviation = sd(runtimeMinutes ~ decade, data = sample_n(e, size = n, replace = FALSE))
+)
+
+se_mean <- favstats(mean ~ decade, data = single_sample)
+se_mean
 ```
 
 ## Including Plots
