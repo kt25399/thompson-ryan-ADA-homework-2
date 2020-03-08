@@ -17,8 +17,8 @@ library(mosaic)
 
 f <-"https://raw.githubusercontent.com/difiore/ADA-datasets/master/IMDB-movies.csv"
 d <- read.csv(f)
-e <- filter(d, startYear %in% 1920:1979 & runtimeMinutes <240) 
-e <- mutate(e, decade = startYear - (startYear %% 10))
+e <- filter(d, startYear %in% 1920:1979 & runtimeMinutes <240) %>%
+  mutate(decade = startYear - (startYear %% 10))
 
 p <- ggplot(e, aes(runtimeMinutes)) + labs(x= "Movie Run Time") + geom_histogram() + facet_wrap( ~ decade)
 p
