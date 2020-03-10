@@ -47,6 +47,9 @@ comparison <- tibble(
   se.ss = single_sample$se
 )
 comparison
+
+g <- lapply(1:10000, function(x) e[sample(nrow(e), size = 600, replace = F),])
+
 ```
 
 ## Including Plots

@@ -369,12 +369,12 @@ summary {
 <div id="challenge-1" class="section level2">
 <h2>CHALLENGE 1</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## -- Attaching packages -------------------------------------------------------------------------------------------------------------------------------------- tidyverse 1.3.0 --</code></pre>
 <pre><code>## v ggplot2 3.2.1     v purrr   0.3.3
 ## v tibble  2.1.3     v dplyr   0.8.3
 ## v tidyr   1.0.0     v stringr 1.4.0
 ## v readr   1.3.1     v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------------------ tidyverse_conflicts() --
+<pre><code>## -- Conflicts ----------------------------------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()</code></pre>
 <pre class="r"><code>library(mosaic)</code></pre>
@@ -460,12 +460,12 @@ single_sample</code></pre>
 <pre><code>## # A tibble: 6 x 4
 ##   decade  mean    sd    se
 ##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1   1920 100    19.8  8.08
-## 2   1930  85.2  16.9  6.90
-## 3   1940  95    26.8 10.9 
-## 4   1950  95.9  12.0  4.91
-## 5   1960 111.   13.1  5.35
-## 6   1970  99.1  29.8 12.2</code></pre>
+## 1   1920  95    13.6  5.56
+## 2   1930  88.2  20.6  8.43
+## 3   1940 109.   16.2  6.61
+## 4   1950 109.   21.4  8.72
+## 5   1960 107.   20.1  8.22
+## 6   1970 106.   15.0  6.14</code></pre>
 <pre class="r"><code>comparison &lt;- tibble(
   decade = single_sample$decade,
   mean.p = results$mean,
@@ -477,12 +477,13 @@ comparison</code></pre>
 <pre><code>## # A tibble: 6 x 5
 ##   decade mean.p  se.p mean.ss se.ss
 ##    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
-## 1   1920   96.0 11.2    100    8.08
-## 2   1930   90.2  7.62    85.2  6.90
-## 3   1940   97.3  8.40    95   10.9 
-## 4   1950   99.6  8.80    95.9  4.91
-## 5   1960  107.   9.93   111.   5.35
-## 6   1970  105.   8.72    99.1 12.2</code></pre>
+## 1   1920   96.0 11.2     95    5.56
+## 2   1930   90.2  7.62    88.2  8.43
+## 3   1940   97.3  8.40   109.   6.61
+## 4   1950   99.6  8.80   109.   8.72
+## 5   1960  107.   9.93   107.   8.22
+## 6   1970  105.   8.72   106.   6.14</code></pre>
+<pre class="r"><code>g &lt;- lapply(1:10000, function(x) e[sample(nrow(e), size = 600, replace = F),])</code></pre>
 </div>
 <div id="including-plots" class="section level2">
 <h2>Including Plots</h2>
