@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r movies}
+
 library(tidyverse)
 library(mosaic)
 
@@ -23,20 +24,29 @@ e <- filter(d, startYear %in% 1920:1979 & runtimeMinutes <240) %>%
 p <- ggplot(e, aes(runtimeMinutes)) + labs(x= "Movie Run Time") + geom_histogram() + facet_wrap( ~ decade)
 p
 
-results <- data.frame(
-  "Mean" = mean(runtimeMinutes ~ decade, data = e), 
-  "Standard Deviation" = sd(runtimeMinutes ~ decade, data = e)
-)
-
-n <- 100
-single_sample <- data.frame(
+results <- tibble(
   decade = c(1920,1930,1940,1950,1960,1970),
-  mean = mean(runtimeMinutes ~ decade, data = sample_n(e, size = n, replace = FALSE)),
-  standard_deviation = sd(runtimeMinutes ~ decade, data = sample_n(e, size = n, replace = FALSE))
+  mean = mean(runtimeMinutes ~ decade, data = e), 
+  sd = sd(runtimeMinutes ~ decade, data = e)
 )
+results
 
-se_mean <- favstats(mean ~ decade, data = single_sample)
-se_mean
+single_sample <- tibble(
+  decade = c(1920,1930,1940,1950,1960,1970),
+  mean = mean(runtimeMinutes ~ decade, data = sample_n(e, size = 100, replace = FALSE)),
+  sd = sd(runtimeMinutes ~ decade, data = sample_n(e, size = 100, replace = FALSE))
+) %>% 
+  mutate(se = sd/sqrt(length(sd)))
+single_sample
+                        
+comparison <- tibble(
+  decade = single_sample$decade,
+  mean.p = results$mean,
+  se.p = results$sd/(sqrt(length(results$sd))),
+  mean.ss = single_sample$mean,
+  se.ss = single_sample$se
+)
+comparison
 ```
 
 ## Including Plots
