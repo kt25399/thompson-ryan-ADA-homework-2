@@ -78,8 +78,33 @@ for (i in 1:10000){
   e_1970[[i]] <- sample(e$runtimeMinutes, size = 100, replace = F)
 }
 
-g <- lapply(1:10000, function(x) e[sample(nrow(e), size = 600, replace = F),])
+m_1920 <- NULL
+sd_1920 <- NULL
+m_1930 <- NULL
+sd_1930 <- NULL
+m_1940 <- NULL
+sd_1940 <- NULL
+m_1950 <- NULL
+sd_1950 <- NULL
+m_1960 <- NULL
+sd_1960 <- NULL
+m_1970 <- NULL
+sd_1970 <- NULL
 
+for (i in 1:10000) {
+  m_1920[[i]] <- mean(e_1920[[i]])
+  sd_1920[[i]] <- sd(e_1920[[i]])
+  m_1930[[i]] <- mean(e_1930[[i]])
+  sd_1930[[i]] <- sd(e_1930[[i]])
+  m_1940[[i]] <- mean(e_1940[[i]])
+  sd_1940[[i]] <- sd(e_1940[[i]])
+  m_1950[[i]] <- mean(e_1950[[i]])
+  sd_1950[[i]] <- sd(e_1950[[i]])
+  m_1960[[i]] <- mean(e_1960[[i]])
+  sd_1960[[i]] <- sd(e_1960[[i]])
+  m_1970[[i]] <- mean(e_1970[[i]])
+  sd_1970[[i]] <- sd(e_1970[[i]])
+}
 ```
 
 ## Challenge 2
