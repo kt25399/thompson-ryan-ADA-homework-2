@@ -72,4 +72,27 @@ l <- 18
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Challenge 3
+
+``` {r zombies}
+f <-"https://raw.githubusercontent.com/difiore/ADA-datasets/master/zombies.csv"
+d <- read.csv(f)
+
+names(d)
+
+pop_sd <- function(x) {
+  sqrt(sum((x - mean(x))^2) / (length(x)))
+}
+
+d_avg_tibble <- tibble(
+  avg_height = mean(d$height),
+  sd_height = pop_sd(d$height),
+  avg_weight = mean(d$weight),
+  sd_weight = pop_sd(d$weight),
+  avg_killed = mean(d$zombies_killed),
+  sd_killed = pop_sd(d$zombies_killed),
+  avg_edu = mean(d$years_of_education),
+)
+d_avg_tibble
+
+```
