@@ -9,8 +9,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## CHALLENGE 1
 
-
-
 ```{r movies}
 
 library(tidyverse)
@@ -52,12 +50,26 @@ g <- lapply(1:10000, function(x) e[sample(nrow(e), size = 600, replace = F),])
 
 ```
 
-## Including Plots
+## Challenge 2
 
-You can also embed plots, for example:
+```{r titi monkeys}
+l <- 18
+(fewer_than_13 <- ppois(13, lambda = l))
+(no_calls <- dpois(0, lambda = l))
+(exactly_7 <- dpois(7, lambda = l))  
+(over_20 <- ppois(20, lambda = l, lower.tail = F))
+(p1 <-
+  plotDist(
+    "pois",
+    lambda = l,
+    xlab = "x",
+    ylab = "Pr(X=x",
+    xlim = c(0, 40)
+  ))
+(sim <- rpois(520, lambda = l))
+(p2 <- histogram(sim,
+          xlim(0,40)))
 
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
