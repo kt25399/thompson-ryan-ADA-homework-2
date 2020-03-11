@@ -23,9 +23,9 @@ p <- ggplot(e, aes(runtimeMinutes)) + labs(x= "Movie Run Time") + geom_histogram
 p
 
 results <- tibble(
-  decade = c(1920,1930,1940,1950,1960,1970),
+  decade = unique(e$decade),
   mean = mean(runtimeMinutes ~ decade, data = e), 
-  sd = sd(runtimeMinutes ~ decade, data = e)
+  sd = sqrt(sum((runtimeMinutes - mean(runtimeMinutes~ decade, data = e))^2 ~ decade, data = e) / favstats(runtimeMinutes ~ decade, data = e)$n)
 )
 results
 
