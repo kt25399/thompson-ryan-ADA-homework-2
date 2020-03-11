@@ -110,24 +110,27 @@ for (i in 1:10000) {
 ## Challenge 2
 
 ```{r titi monkeys}
+library(cowplot)
 l <- 18
 (fewer_than_13 <- ppois(13, lambda = l))
 (no_calls <- dpois(0, lambda = l))
 (exactly_7 <- dpois(7, lambda = l))  
 (over_20 <- ppois(20, lambda = l, lower.tail = F))
-(p1 <-
-  plotDist(
-    "pois",
-    lambda = l,
-    xlab = "x",
-    ylab = "Pr(X=x",
-    xlim = c(0, 40)
-  ))
+p1 <-
+    plotDist(
+      "pois",
+      lambda = l,
+      xlab = "x",
+      ylab = "Pr(X=x",
+      xlim = c(0, 40)
+    )
 (sim <- rpois(520, lambda = l))
-(p2 <- histogram(sim,
-          xlim(0,40)))
-
+p2 <- histogram(sim,
+                 xlim(0,40))
+plot_grid(p1, p2) 
 ```
+
+#
 
 ## Challenge 3
 
@@ -186,7 +189,6 @@ d_avg_tibble_samp <- tibble(
 
 s = 30
 d_samp <- sample_n(d, size = s, replace = FALSE)
-length(d_samp$weight)
 
 d_avg_tibble_samp <- tibble(
   avg_height = mean(d_samp$height),
