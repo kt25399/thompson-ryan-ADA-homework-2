@@ -78,8 +78,6 @@ l <- 18
 f <-"https://raw.githubusercontent.com/difiore/ADA-datasets/master/zombies.csv"
 d <- read.csv(f)
 
-names(d)
-
 pop_sd <- function(x) {
   sqrt(sum((x - mean(x))^2) / (length(x)))
 }
@@ -92,7 +90,40 @@ d_avg_tibble <- tibble(
   avg_killed = mean(d$zombies_killed),
   sd_killed = pop_sd(d$zombies_killed),
   avg_edu = mean(d$years_of_education),
+  sd_edu = pop_sd(d$years_of_education),
+  avg_age = mean(d$age),
+  sd_age = pop_sd(d$age)
 )
 d_avg_tibble
 
+ggplot(d, aes(x = height, y = age)) + 
+  geom_point()
+ggplot(d, aes(x = height, y = age)) +
+  geom_point()
+
+histogram(d$height)
+qqnorm(d$height, main = "QQ Plot- Height")
+histogram(d$weight)
+qqnorm(d$weight, main = "QQ Plot- Weight")
+histogram(d$zombies_killed)
+qqnorm(d$zombies_killed, main = "QQ Plot- Number of Zombies Killed")
+histogram(d$years_of_education)
+qqnorm(d$years_of_education, main = "QQ Plot - Years of Education")
+histogram(d$age)
+qqnorm(d$age, main = "QQ Plot- Age")
+
+d_samp <- sample_n(d, size = 30, replace = FALSE)
+
+d_avg_tibble_samp <- tibble(
+  avg_height = mean(d_samp$height),
+  sd_height = sd(d_samp$height),
+  avg_weight = mean(d_samp$weight),
+  sd_weight = sd(d_samp$weight),
+  avg_killed = mean(d_samp$zombies_killed),
+  sd_killed = sd(d_samp$zombies_killed),
+  avg_edu = mean(d_samp$years_of_education),
+  sd_edu = sd(d_samp$years_of_education),
+  avg_age = mean(d_samp$age),
+  sd_age = sd(d_samp$age)
+)
 ```
