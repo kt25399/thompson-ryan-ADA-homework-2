@@ -79,32 +79,35 @@ for (i in 1:10000){
 }
 
 m_1920 <- NULL
-sd_1920 <- NULL
 m_1930 <- NULL
-sd_1930 <- NULL
 m_1940 <- NULL
-sd_1940 <- NULL
 m_1950 <- NULL
-sd_1950 <- NULL
 m_1960 <- NULL
-sd_1960 <- NULL
 m_1970 <- NULL
-sd_1970 <- NULL
 
 for (i in 1:10000) {
   m_1920[[i]] <- mean(e_1920[[i]])
-  sd_1920[[i]] <- sd(e_1920[[i]])
   m_1930[[i]] <- mean(e_1930[[i]])
-  sd_1930[[i]] <- sd(e_1930[[i]])
   m_1940[[i]] <- mean(e_1940[[i]])
-  sd_1940[[i]] <- sd(e_1940[[i]])
   m_1950[[i]] <- mean(e_1950[[i]])
-  sd_1950[[i]] <- sd(e_1950[[i]])
   m_1960[[i]] <- mean(e_1960[[i]])
-  sd_1960[[i]] <- sd(e_1960[[i]])
   m_1970[[i]] <- mean(e_1970[[i]])
-  sd_1970[[i]] <- sd(e_1970[[i]])
-}
+}  
+
+(run_time_minutes <- tibble(
+  m1920 = mean(m_1920),
+  sd1920 = sd(m_1920),
+  m1930 = mean(m_1930),
+  sd1930 = sd(m_1930),
+  m1940 = mean(m_1940),
+  sd1940 = sd(m_1940),
+  m1950 = mean(m_1950),
+  sd1950 = sd(m_1950),
+  m1960 = mean(m_1960),
+  sd1960 = sd(m_1960),
+  m1970 = mean(m_1970),
+  sd1970 = sd(m_1970)
+))
 ```
 
 ## Challenge 2
@@ -226,17 +229,74 @@ for (i in 1:99) {
   ninety_nine[[i]] <-  d_samp <- sample_n(d, size = s, replace = FALSE)
 }  
 
-mean(ninety_nine[[1]]$height)
-
 m_sample_height <- NULL
 sd_sample_height <- NULL
+m_sample_weight <- NULL
+sd_sample_weight <- NULL
+m_sample_killed <- NULL
+sd_sample_killed <- NULL
+m_sample_edu <- NULL
+sd_sample_edu <- NULL
+m_sample_age <- NULL
+sd_sample_age <- NULL
+
 for (i in 1:99) {
   m_sample_height[[i]] <- mean(ninety_nine[[i]]$height)
-}
-for (i in 1:99) {
   sd_sample_height[[i]] <- sd(ninety_nine[[i]]$height)
+  m_sample_weight[[i]] <- mean(ninety_nine[[i]]$weight)
+  sd_sample_weight[[i]] <- sd(ninety_nine[[i]]$weight)
+  m_sample_killed[[i]] <- mean(ninety_nine[[i]]$zombies_killed)
+  sd_sample_killed[[i]] <- sd(ninety_nine[[i]]$zombies_killed)
+  m_sample_edu[[i]] <- mean(ninety_nine[[i]]$years_of_education)
+  sd_sample_edu[[i]] <- sd(ninety_nine[[i]]$years_of_education)
+  m_sample_age[[i]] <- mean(ninety_nine[[i]]$age)
+  sd_sample_age[[i]] <- sd(ninety_nine[[i]]$age)
 }
+m_sample_height[[100]] <- d_avg_tibble_samp$avg_height
+sd_sample_height[[100]] <- d_avg_tibble_samp$sd_height
+m_sample_weight[[100]] <- d_avg_tibble_samp$avg_weight
+sd_sample_weight[[100]] <- d_avg_tibble_samp$sd_weight
+m_sample_killed[[100]] <- d_avg_tibble_samp$avg_killed
+sd_sample_killed[[100]] <- d_avg_tibble_samp$sd_killed
+m_sample_edu[[100]] <- d_avg_tibble_samp$avg_edu
+sd_sample_edu[[100]] <- d_avg_tibble_samp$sd_edu
+m_sample_age[[100]] <- d_avg_tibble_samp$avg_age
+sd_sample_age[[100]] <- d_avg_tibble_samp$sd_age
 
-histogram(m_sample_height)
+
+(height <- tibble(
+  pop_sd = d_avg_tibble$sd_height,
+  se = d_avg_tibble_samp$se_height,
+  sampling_dist_se = sd(m_sample_height)
+))
+
+(weight <- tibble(
+  pop_sd = d_avg_tibble$sd_weight,
+  se = d_avg_tibble_samp$se_weight,
+  sampling_dist_se = sd(m_sample_weight)
+))
+(zombies_killed <- tibble(
+  pop_sd = d_avg_tibble$sd_killed,
+  se = d_avg_tibble_samp$se_killed,
+  sampling_dist_se = sd(m_sample_killed)
+))
+(education <- tibble(
+  pop_sd = d_avg_tibble$sd_edu,
+  se = d_avg_tibble_samp$se_edu,
+  sampling_dist_se = sd(m_sample_killed)
+))
+(age <- tibble(
+  pop_sd = d_avg_tibble$sd_age,
+  se = d_avg_tibble_samp$se_age,
+  sampling_dist_se = sd(m_sample_age)
+))
+
+h1 = histogram(m_sample_height)
+h2 = histogram(m_sample_weight)
+h3 = histogram(m_sample_killed)
+h4 = histogram(m_sample_edu)
+h5 = histogram(m_sample_age)
+
+plot_grid(h1, h2, h3, h4, h5)
 
 ```
